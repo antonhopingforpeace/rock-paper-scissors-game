@@ -63,7 +63,7 @@ function showWinner(player1,player2){
         console.log("You win, congratulations!!!");
     }
     else if(player2>player1){
-        console.log("You lost for the computer, unlucky");
+        console.log("You lost from the computer, unlucky");
     }
     else{
         console.log("Not a bad game, but its a tie.")
