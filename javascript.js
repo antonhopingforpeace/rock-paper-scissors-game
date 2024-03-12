@@ -14,67 +14,80 @@ function getComputerChoice(){
 }
 
 function playRound(playerSelection, computerSelection){
+    
+    timesPlayed+=1;
+
+    console.log(timesPlayed);
+
+    if(timesPlayed>=6){
+        newDiv.textContent="GAME OVER";
+
+        let winner = document.createElement("h1")
+
+        winner.textContent=showWinner(playerScore,computerScore);
+        
+        body.appendChild(winner);
+        return
+    }
 
     const player1 = playerSelection.toLowerCase();
     const player2 = computerSelection.toLowerCase();
 
     if (player1===player2){
-        console.log("Its a tie, you both brought "+player1);
         newDiv.textContent="Its a tie, you both brought "+player1;
-        //return 0;
     }
     else if (player1 === "rock" && player2==="paper"){
-        console.log("You Lose! Paper beats Rock");
         newDiv.textContent="You Lose! Paper beats Rock";
-        //return -1;
+        computerScore+=1;
     }
     else if (player1 === "rock" && player2==="scissors"){
-        console.log("You Win! Rock beats Scissors");
         newDiv.textContent="You Win! Rock beats Scissors";
-        //return 1;
+        playerScore+=1;
     }
     else if (player1 === "paper" && player2==="scissors"){
-        console.log("You Lose! Scissors beats Paper");
         newDiv.textContent="You Lose! Scissors beats Paper";
-        //return -1;
+        computerScore+=1;
     }
     else if (player1 === "paper" && player2==="rock"){
-        console.log("You Win! Paper beats Rock");
         newDiv.textContent="You Win! Paper beats Rock";
-        //return 1;
+        playerScore+=1;
     }
     else if (player1 === "scissors" && player2==="paper"){
-        console.log("You Win! Scissors beats Paper");
         newDiv.textContent="You Win! Scissors beats Paper";
-        //return 1;
+        playerScore+=1;
     }
     else if(player1 === "scissors" && player2==="rock"){
-        console.log("You Lose! Rock beats Scissors");
         newDiv.textContent="You Lose! Rock beats Scissors";
-        //return -1;
+        computerScore+=1;
     }
-    else{
-        console.log("Your input was wrong, give a answer between ROCK, PAPER and SCISSORS")
-        newDiv.textContent="Your input was wrong, give a answer between ROCK, PAPER and SCISSORS";
-        //return -2;
-    }
+
+    player.textContent = "Player: "+playerScore;
+    computer.textContent = "Computer "+computerScore;
+    if(timesPlayed<5)
+    round.textContent = "Round: " + (timesPlayed+1);
+    else
+    round.textContent = "Round: 5"
+    // else{
+    //     newDiv.textContent="Your input was wrong, give a answer between ROCK, PAPER and SCISSORS";
+    //     //return -2;
+    // }
 
 }
 
-function showResult(player1,player2){
-    console.log("Player score:"+player1);
-    console.log("Computer score:"+player2);
-}
+// function showResult(player1,player2){
+//     console.log("Player score:"+player1);
+//     console.log("Computer score:"+player2);
+// }
 
 function showWinner(player1,player2){
     if(player1>player2){
-        console.log("You win, congratulations!!!");
+        return "You win, congratulations!!!";
     }
     else if(player2>player1){
-        console.log("You lost from the computer, unlucky");
+        return "You lost from the computer, unlucky";
     }
     else{
-        console.log("Not a bad game, but its a tie.")
+        return"Not a bad game, but its a tie.";
     }
 }
 
@@ -132,9 +145,16 @@ let buttonScissors = document.getElementById("scissors");
 
 let body = document.querySelector("body");
 
+let results = document.querySelector(".results");
 let newDiv = document.createElement("div");
 
+let player = document.querySelector(".player");
+let computer = document.querySelector(".computer");
+let round = document.querySelector(".round");
 
+let computerScore=0;
+let playerScore=0;
+let timesPlayed=0;
 
 buttonRock.addEventListener("click", ()=> {
     playRound("rock",getComputerChoice())});
@@ -143,5 +163,9 @@ buttonPaper.addEventListener("click", ()=> {
 buttonScissors.addEventListener("click", ()=>{
     playRound("scissors",getComputerChoice())});
 
-body.appendChild(newDiv);
+player.textContent = "Player: "+playerScore;
+computer.textContent = "Computer: "+computerScore;
+round.textContent = "Round: " + (timesPlayed+1);
+
+body.insertBefore(newDiv,results);
 
