@@ -19,7 +19,7 @@ function playRound(playerSelection, computerSelection){
 
     console.log(timesPlayed);
 
-    if(timesPlayed>=6){
+    if(timesPlayed===6){
         newDiv.textContent="GAME OVER";
 
         let winner = document.createElement("h1")
@@ -28,6 +28,9 @@ function playRound(playerSelection, computerSelection){
         
         body.appendChild(winner);
         return
+    }
+    if(timesPlayed>6){
+        return;
     }
 
     const player1 = playerSelection.toLowerCase();
