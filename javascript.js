@@ -13,25 +13,25 @@ function getComputerChoice(){
 
 }
 
+function disableButtons(){
+    buttonPaper.disabled= true;
+    buttonRock.disabled=true;
+    buttonScissors.disabled=true;
+}
+
+function showWinner(player1,player2){
+    if(player1>player2){
+        return "You win, congratulations!!!";
+    }
+    else if(player2>player1){
+        return "You lost from the computer, unlucky";
+    }
+    else{
+        return"Not a bad game, but its a tie.";
+    }
+}
+
 function playRound(playerSelection, computerSelection){
-    
-    timesPlayed+=1;
-
-    console.log(timesPlayed);
-
-    if(timesPlayed===6){
-        newDiv.textContent="GAME OVER";
-
-        let winner = document.createElement("h1")
-
-        winner.textContent=showWinner(playerScore,computerScore);
-        
-        body.appendChild(winner);
-        return
-    }
-    if(timesPlayed>6){
-        return;
-    }
 
     const player1 = playerSelection.toLowerCase();
     const player2 = computerSelection.toLowerCase();
@@ -66,81 +66,21 @@ function playRound(playerSelection, computerSelection){
 
     player.textContent = "Player: "+playerScore;
     computer.textContent = "Computer "+computerScore;
-    if(timesPlayed<5)
-    round.textContent = "Round: " + (timesPlayed+1);
-    else
-    round.textContent = "Round: 5"
-    // else{
-    //     newDiv.textContent="Your input was wrong, give a answer between ROCK, PAPER and SCISSORS";
-    //     //return -2;
-    // }
+
+    if(playerScore===3||computerScore===3){
+        newDiv.textContent="GAME OVER";
+
+        let winner = document.createElement("h1")
+
+        winner.textContent=showWinner(playerScore,computerScore);
+        
+        disableButtons();
+
+        body.appendChild(winner);
+        return
+    }
 
 }
-
-// function showResult(player1,player2){
-//     console.log("Player score:"+player1);
-//     console.log("Computer score:"+player2);
-// }
-
-function showWinner(player1,player2){
-    if(player1>player2){
-        return "You win, congratulations!!!";
-    }
-    else if(player2>player1){
-        return "You lost from the computer, unlucky";
-    }
-    else{
-        return"Not a bad game, but its a tie.";
-    }
-}
-
-// function playGame(){
-
-//     let computerScore=0;
-//     let playerScore=0;
-
-//     for(let round=1; round<=5; round++){
-
-//         const computerSelection = getComputerChoice();
-//         let playerSelection = prompt("Choose between rock,paper,scissors:");
-//         let result = playRound(playerSelection,computerSelection);
-        
-//         if(result===1){
-//             playerScore++;
-//         }
-//         else if(result===-1){
-//             computerScore++;
-//         }
-//         else if(result===0){
-//             computerScore++;
-//             playerScore++;
-//         }
-//         else{
-            
-//             while(result===-2){
-//                 let playerSelection = prompt("Choose between rock,paper,scissors:");
-//                 result = playRound(playerSelection,computerSelection);
-//                 if(result===1){
-//                     playerScore++;
-//                 }
-//                 else if(result===-1){
-//                     computerScore++;
-//                 }
-//                 else if(result===0){
-//                     computerScore++;
-//                     playerScore++;
-//                 }   
-//             }
-//         }
-        
-//         console.log("ROUND"+round+":");
-//         showResult(playerScore,computerScore);
-//     }
-
-//     showWinner(playerScore,computerScore);
-// }
-
-// playGame();
 
 let buttonRock = document.getElementById("rock");
 let buttonPaper = document.getElementById("paper");
@@ -153,11 +93,9 @@ let newDiv = document.createElement("div");
 
 let player = document.querySelector(".player");
 let computer = document.querySelector(".computer");
-let round = document.querySelector(".round");
 
 let computerScore=0;
 let playerScore=0;
-let timesPlayed=0;
 
 buttonRock.addEventListener("click", ()=> {
     playRound("rock",getComputerChoice())});
@@ -168,7 +106,6 @@ buttonScissors.addEventListener("click", ()=>{
 
 player.textContent = "Player: "+playerScore;
 computer.textContent = "Computer: "+computerScore;
-round.textContent = "Round: " + (timesPlayed+1);
 
 body.insertBefore(newDiv,results);
 
